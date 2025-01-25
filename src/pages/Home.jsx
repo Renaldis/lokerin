@@ -1,11 +1,12 @@
 import { Link } from "react-router-dom";
-import bannerImg from "../assets/heroSiniLoker.png";
+import bannerImg from "/public/assets/heroSiniLoker.png";
+
 import { cardAbout, jobListings } from "../data";
 
 function Home() {
   return (
     <section id="home" className="">
-      <article className="banner lg:h-screen bg-slate-50 pb-10 lg:pb-0">
+      <article className="banner xl:h-screen bg-slate-50 pb-10">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 1440 320"
@@ -43,7 +44,7 @@ function Home() {
       </article>
       {/* card */}
       <article>
-        <div className="card-section px-10 pb-20 pt-10">
+        <div className="card-section px-10 pb-10 lg:pb-15 pt-10">
           <h1 className="lg:text-2xl text-xl font-semibold text-slate-600 text-center mb-5">
             Mengapa mencari pekerjaan di Lokerin?
           </h1>
@@ -58,7 +59,7 @@ function Home() {
                     <img src={res.image} alt={res.title} className="w-25" />
                   </div>
                   <div className="flex flex-col items-center mt-5 px-4 mx-auto">
-                    <h3 className="text-lg">{res.title}</h3>
+                    <h3 className="text-lg font-semibold">{res.title}</h3>
                     <p className="text-base text-center">{res.description}</p>
                   </div>
                 </div>

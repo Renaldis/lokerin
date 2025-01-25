@@ -3,19 +3,19 @@ const cardAbout = [
     id: 1,
     title: "Preferensi & Job Alert",
     description: "Cari lowongan sesuai preferensi Anda dalam hitungan detik",
-    image: "https://karir.com/images/Principle/Illustration/Landing-Card/3.png",
+    image: "../assets/2.png",
   },
   {
     id: 2,
     title: "Profile Matching",
     description: "Dapatkan Informasi Lowongan yang cocok dengan profil Anda",
-    image: "https://karir.com/images/Principle/Illustration/Landing-Card/4.png",
+    image: "../assets/4.png",
   },
   {
     id: 3,
     title: "Status Lowongan",
     description: "Pantau status Lowongan perusahaan dengan mudah.",
-    image: "https://karir.com/images/Principle/Illustration/Landing-Card/2.png",
+    image: "../assets/3.png",
   },
 ];
 
