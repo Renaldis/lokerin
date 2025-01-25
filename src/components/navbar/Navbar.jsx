@@ -65,12 +65,20 @@ function Navbar({ ...props }) {
 
         {/* Profile */}
         <div className="hidden lg:flex items-center gap-2">
-          <span>Renaldi Saputra</span>
+          {/* before login */}
+          <a
+            href=""
+            className="px-6 py-2 bg-blue-600 text-slate-100 rounded-lg hover:bg-blue-900 font-semibold"
+          >
+            Masuk
+          </a>
+          {/* after login */}
+          {/* <span>Renaldi Saputra</span>
           <img
             src="https://media.istockphoto.com/id/483627817/photo/showing-off-his-pearly-whites.jpg?s=612x612&w=0&k=20&c=gk6aVVGp52YFx1ZzPVQplGc7JL5zkrfxQTuLjIn2RU8="
             alt="man-smile"
             className="w-10 rounded-full"
-          />
+          /> */}
         </div>
       </div>
 
@@ -102,12 +110,15 @@ function Navbar({ ...props }) {
             Tentang Kami
           </Link>
           <div className="flex items-center gap-2 mt-3">
-            <span>Renaldi Saputra</span>
+            {/* before login */}
+
+            {/* after login */}
+            {/* <span>Renaldi Saputra</span>
             <img
               src="https://media.istockphoto.com/id/483627817/photo/showing-off-his-pearly-whites.jpg?s=612x612&w=0&k=20&c=gk6aVVGp52YFx1ZzPVQplGc7JL5zkrfxQTuLjIn2RU8="
               alt="man-smile"
               className="w-10 rounded-full"
-            />
+            /> */}
           </div>
         </div>
       )}
