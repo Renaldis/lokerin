@@ -5,7 +5,15 @@ import { useNavigate } from "react-router-dom";
 export default function DashboardListJob() {
   const navigate = useNavigate();
   const { global } = useContext(useGlobalContext);
-  const { jobs } = global;
+  const { jobs, setFetchStatus } = global;
+
+  const handleDelete = (id) => {
+    const localJobs = JSON.parse(localStorage.getItem("jobs"));
+    const updatedJobs = localJobs.filter((job) => job._id !== id);
+
+    localStorage.setItem("jobs", JSON.stringify(updatedJobs));
+    setFetchStatus(true);
+  };
   return (
     <div>
       <h1 className="text-lg md:text-xl font-bold p-5">List Data Perusahaan</h1>
@@ -40,8 +48,8 @@ export default function DashboardListJob() {
                     </td>
                     <td className="px-6 py-4">{job.company_name}</td>
                     <td className="px-6 py-4">{job.title}</td>
-                    <td className="px-6 py-4">{job.salary_min}</td>
-                    <td className="px-6 py-4">{job.salary_max}</td>
+                    <td className="px-6 py-4">{parseInt(job.salary_min)}</td>
+                    <td className="px-6 py-4">{parseInt(job.salary_max)}</td>
                     <td
                       className={
                         job.job_status == 1

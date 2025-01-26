@@ -8,7 +8,6 @@ export default function DashboardJobForm() {
 
   const navigate = useNavigate();
   const [input, setInput] = useState({
-    _id: "",
     title: "",
     company_name: "",
     company_city: "",
