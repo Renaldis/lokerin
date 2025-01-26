@@ -1,5 +1,5 @@
-import { Link, useLocation } from "react-router-dom";
-import { useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 import LokerLogo from "/assets/siniLoker2.png";
 import { useContext } from "react";
 import { useGlobalContext } from "../../context/useGlobalContext";
@@ -8,16 +8,15 @@ import ConfirmModal from "../popupConfirm/Confirm";
 
 function Navbar({ ...props }) {
   const { auth, global } = useContext(useGlobalContext);
-  const { user, authenticated } = auth;
+  const { user, userImg } = auth;
   const {
-    handleConfirmLogout,
     isModalOpen,
     setIsMenuAdminOpen,
     isMenuAdminOpen,
     isMenuOpen,
     setIsMenuOpen,
+    setIsModalOpen,
   } = global;
-
   const location = useLocation();
 
   const toggleMenu = () => {
@@ -27,7 +26,11 @@ function Navbar({ ...props }) {
     setIsMenuAdminOpen(!isMenuAdminOpen);
     isModalOpen && setIsMenuAdminOpen(false);
   };
-
+  const handleConfirmLogout = () => {
+    setIsMenuOpen(false);
+    setIsMenuAdminOpen(false);
+    setIsModalOpen(!isModalOpen);
+  };
   return (
     <nav className="border-b border-slate-300" {...props}>
       <div className="flex items-center justify-between px-6 py-3">
@@ -90,7 +93,7 @@ function Navbar({ ...props }) {
             >
               <span>{user}</span>
               <img
-                src="https://media.istockphoto.com/id/483627817/photo/showing-off-his-pearly-whites.jpg?s=612x612&w=0&k=20&c=gk6aVVGp52YFx1ZzPVQplGc7JL5zkrfxQTuLjIn2RU8="
+                src={userImg}
                 alt="man-smile"
                 className="w-10 rounded-full"
               />

@@ -9,6 +9,8 @@ import GlobalProvider from "./context/GlobalProvider";
 import LayoutDashboard from "./components/dashboardAdmin/components/Layout/LayoutDashboard";
 import Dashboard from "./components/dashboardAdmin/pages/dashboard";
 import DashboardListJob from "./components/dashboardAdmin/pages/DashboardListJob";
+import DashboardJobForm from "./components/dashboardAdmin/pages/DashboardJobForm";
+import DashboardProfile from "./components/dashboardAdmin/pages/DashboardProfile";
 
 function App() {
   const LoginRoute = ({ children }) => {
@@ -79,6 +81,26 @@ function App() {
               <DashboardRoute>
                 <LayoutDashboard>
                   <DashboardListJob />
+                </LayoutDashboard>
+              </DashboardRoute>
+            }
+          />
+          <Route
+            path="/dashboard/list-job-vacancy/create"
+            element={
+              <DashboardRoute>
+                <LayoutDashboard>
+                  <DashboardJobForm />
+                </LayoutDashboard>
+              </DashboardRoute>
+            }
+          />
+          <Route
+            path="/dashboard/profile"
+            element={
+              <DashboardRoute>
+                <LayoutDashboard>
+                  <DashboardProfile />
                 </LayoutDashboard>
               </DashboardRoute>
             }

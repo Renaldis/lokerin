@@ -1,9 +1,25 @@
 import { useContext } from "react";
 import { useGlobalContext } from "../../context/useGlobalContext";
+import { useNavigate } from "react-router-dom";
 
-export default function ConfirmModal({ action, hidden, ...props }) {
-  const { global } = useContext(useGlobalContext);
-  const { handleLogout, setIsModalOpen } = global;
+export default function ConfirmModal({
+  action,
+  hidden,
+  setIsLogout,
+  ...props
+}) {
+  const navigate = useNavigate();
+  const { global, auth } = useContext(useGlobalContext);
+  const { setAuthenticated } = auth;
+  const { setIsModalOpen, isModalOpen, setIsMenuAdminOpen } = global;
+  const handleLogout = () => {
+    setIsModalOpen(!isModalOpen);
+    setIsMenuAdminOpen(false);
+    localStorage.removeItem("auth");
+    setAuthenticated(false);
+    navigate("/login");
+  };
+
   return (
     <>
       <div className="fixed inset-0 flex items-center justify-center z-50">

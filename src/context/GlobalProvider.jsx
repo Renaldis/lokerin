@@ -4,7 +4,9 @@ import { jobData } from "../jobData";
 
 function GlobalProvider(props) {
   const [authenticated, setAuthenticated] = useState(false);
+  const [fetchStatus, setFetchStatus] = useState(true);
   const [user, setUser] = useState(null);
+  const [userImg, setUserImg] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isMenuAdminOpen, setIsMenuAdminOpen] = useState(false);
@@ -23,14 +25,19 @@ function GlobalProvider(props) {
   }, []);
 
   useEffect(() => {
-    const authData = JSON.parse(localStorage.getItem("auth"));
-    if (authData?.username) {
-      setAuthenticated(true);
-      setUser(authData.username);
-    } else {
-      setUser(null);
+    if (fetchStatus === true) {
+      const authData = JSON.parse(localStorage.getItem("auth"));
+      if (authData?.fullName) {
+        setAuthenticated(true);
+        setUser(authData.fullName);
+        setUserImg(authData.image_url);
+      } else {
+        setUser(null);
+        setUserImg(null);
+      }
+      setFetchStatus(false);
     }
-  }, [authenticated]);
+  }, [authenticated, fetchStatus, setFetchStatus]);
   useEffect(() => {
     if (isModalOpen) {
       document.body.style.overflow = "hidden";
@@ -41,22 +48,16 @@ function GlobalProvider(props) {
       document.body.style.overflow = "auto";
     };
   }, [isModalOpen]);
-
-  const handleConfirmLogout = () => {
-    setIsMenuOpen(false);
-    setIsMenuAdminOpen(false);
-    setIsModalOpen(!isModalOpen);
+  console.log(fetchStatus);
+  const auth = {
+    user,
+    setUser,
+    userImg,
+    setUserImg,
+    authenticated,
+    setAuthenticated,
   };
-  const handleLogout = () => {
-    setIsModalOpen(!isModalOpen);
-    setIsMenuAdminOpen(false);
-    localStorage.removeItem("auth");
-    setAuthenticated(false);
-  };
-  const auth = { user, setUser, authenticated, setAuthenticated };
   const global = {
-    handleConfirmLogout,
-    handleLogout,
     isModalOpen,
     setIsModalOpen,
     setIsMenuAdminOpen,
@@ -64,6 +65,7 @@ function GlobalProvider(props) {
     setIsMenuOpen,
     isMenuOpen,
     jobs,
+    setFetchStatus,
   };
   return (
     <useGlobalContext.Provider value={{ auth, global }}>

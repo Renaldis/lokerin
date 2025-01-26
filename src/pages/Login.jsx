@@ -38,10 +38,16 @@ const Login = () => {
       input.password === CREDENTIALS.password
     ) {
       setAuthenticated(true);
-      setUser(input.username);
+      // setUser(input.username);
       localStorage.setItem(
         "auth",
-        JSON.stringify({ username: input.username, password: input.password })
+        JSON.stringify({
+          fullName: input.username,
+          username: input.username,
+          password: input.password,
+          image_url:
+            "https://media.istockphoto.com/id/483627817/photo/showing-off-his-pearly-whites.jpg?s=612x612&w=0&k=20&c=gk6aVVGp52YFx1ZzPVQplGc7JL5zkrfxQTuLjIn2RU8=",
+        })
       );
       navigate("/dashboard");
       setInput({

@@ -30,6 +30,7 @@ export default function LayoutDashboard(props) {
         setPageName("");
     }
   }, [location.pathname]);
+
   return (
     <>
       <div className="flex flex-row h-screen overflow-hidden">

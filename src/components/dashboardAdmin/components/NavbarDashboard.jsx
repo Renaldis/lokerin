@@ -1,24 +1,20 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useGlobalContext } from "../../../context/useGlobalContext";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import Button from "../../button/Button";
 import ConfirmModal from "../../popupConfirm/Confirm";
 import LokerLogo from "/assets/siniLoker2.png";
 
 export default function NavbarDashboard({ pageName, ...props }) {
   const { global, auth } = useContext(useGlobalContext);
-  const { user } = auth;
-  const {
-    setIsMenuAdminOpen,
-    isMenuAdminOpen,
-    isModalOpen,
-    handleConfirmLogout,
-  } = global;
+  const { user, userImg } = auth;
+  const { setIsMenuAdminOpen, isMenuAdminOpen, isModalOpen } = global;
 
   const toggleMenuAdmin = () => {
     setIsMenuAdminOpen(!isMenuAdminOpen);
     isModalOpen && setIsMenuAdminOpen(false);
   };
+
   return (
     <nav className="border-b border-slate-300" {...props}>
       <div className="flex items-center justify-between px-6 py-3">
@@ -35,7 +31,7 @@ export default function NavbarDashboard({ pageName, ...props }) {
             >
               <span>{user}</span>
               <img
-                src="https://media.istockphoto.com/id/483627817/photo/showing-off-his-pearly-whites.jpg?s=612x612&w=0&k=20&c=gk6aVVGp52YFx1ZzPVQplGc7JL5zkrfxQTuLjIn2RU8="
+                src={userImg}
                 alt="man-smile"
                 className="w-10 rounded-full"
               />

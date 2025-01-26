@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useGlobalContext } from "../../../context/useGlobalContext";
 
@@ -6,9 +6,16 @@ import LogoSiniLoker from "/assets/siniLoker2.png";
 
 export default function AsideDashboard({ ...props }) {
   const { global } = useContext(useGlobalContext);
-  const { handleConfirmLogout } = global;
+  const { setIsMenuOpen, setIsMenuAdminOpen, setIsModalOpen, isModalOpen } =
+    global;
   const navigate = useNavigate();
   const location = useLocation();
+
+  const handleConfirmLogout = () => {
+    setIsMenuOpen(false);
+    setIsMenuAdminOpen(false);
+    setIsModalOpen(!isModalOpen);
+  };
 
   return (
     <div {...props}>
