@@ -6,6 +6,9 @@ import JobVacancy from "./pages/JobVacancy";
 import About from "./pages/About";
 import Login from "./pages/Login";
 import GlobalProvider from "./context/GlobalProvider";
+import LayoutDashboard from "./components/dashboardAdmin/components/Layout/LayoutDashboard";
+import Dashboard from "./components/dashboardAdmin/pages/dashboard";
+import DashboardListJob from "./components/dashboardAdmin/pages/DashboardListJob";
 
 function App() {
   const LoginRoute = ({ children }) => {
@@ -13,6 +16,14 @@ function App() {
       return <Navigate to={"/dashboard"} />;
     } else {
       return children;
+    }
+  };
+
+  const DashboardRoute = ({ children }) => {
+    if (localStorage.getItem("auth")) {
+      return children;
+    } else {
+      return <Navigate to={"/login"} />;
     }
   };
 
@@ -50,6 +61,26 @@ function App() {
               <LoginRoute>
                 <Login />
               </LoginRoute>
+            }
+          />
+          <Route
+            path="/dashboard"
+            element={
+              <DashboardRoute>
+                <LayoutDashboard>
+                  <Dashboard />
+                </LayoutDashboard>
+              </DashboardRoute>
+            }
+          />
+          <Route
+            path="/dashboard/list-job-vacancy"
+            element={
+              <DashboardRoute>
+                <LayoutDashboard>
+                  <DashboardListJob />
+                </LayoutDashboard>
+              </DashboardRoute>
             }
           />
         </Routes>

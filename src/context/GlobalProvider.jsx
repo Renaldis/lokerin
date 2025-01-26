@@ -1,5 +1,6 @@
 import { useGlobalContext } from "./useGlobalContext";
 import { useEffect, useState } from "react";
+import { jobData } from "../jobData";
 
 function GlobalProvider(props) {
   const [authenticated, setAuthenticated] = useState(false);
@@ -7,6 +8,19 @@ function GlobalProvider(props) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isMenuAdminOpen, setIsMenuAdminOpen] = useState(false);
+  const [jobs, setJobs] = useState([]);
+
+  useEffect(() => {
+    if (!localStorage.getItem("jobs")) {
+      localStorage.setItem("jobs", JSON.stringify(jobData));
+    }
+  }, []);
+  useEffect(() => {
+    if (localStorage.getItem("jobs")) {
+      const dataJobs = localStorage.getItem("jobs");
+      setJobs(JSON.parse(dataJobs));
+    }
+  }, []);
 
   useEffect(() => {
     const authData = JSON.parse(localStorage.getItem("auth"));
@@ -27,6 +41,7 @@ function GlobalProvider(props) {
       document.body.style.overflow = "auto";
     };
   }, [isModalOpen]);
+
   const handleConfirmLogout = () => {
     setIsMenuOpen(false);
     setIsMenuAdminOpen(false);
