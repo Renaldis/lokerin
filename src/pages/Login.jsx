@@ -50,10 +50,6 @@ const Login = () => {
       });
     }
   };
-  useEffect(() => {
-    console.log(authenticated);
-    console.log(user);
-  }, [authenticated, user]);
 
   return (
     <div className="flex flex-col items-center justify-center py-8 bg-gray-100 min-h-screen">

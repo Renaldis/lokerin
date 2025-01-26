@@ -154,6 +154,12 @@ function Navbar({ ...props }) {
           >
             Tentang Kami
           </Link>
+          <Link
+            to="/dashboard"
+            className={`block text-base font-semibold py-2 text-slate-600 hover:text-slate-900`}
+          >
+            Dashboard Admin
+          </Link>
           <div className="flex items-center gap-2 mt-3">
             {user ? (
               <div className="flex items-center cursor-pointer">
