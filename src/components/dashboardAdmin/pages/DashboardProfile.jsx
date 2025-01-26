@@ -42,24 +42,19 @@ export default function DashboardProfile() {
 
     const { fullName, image_url } = inputProfile;
 
-    // Ambil data auth dari localStorage
     const authData = JSON.parse(localStorage.getItem("auth"));
 
     if (authData) {
-      // Update properti yang diinginkan
-      authData.fullName = fullName || authData.fullName; // Jika kosong, gunakan nilai sebelumnya
+      authData.fullName = fullName || authData.fullName;
       authData.image_url = image_url || authData.image_url;
 
-      // Simpan kembali data yang diperbarui ke localStorage
       localStorage.setItem("auth", JSON.stringify(authData));
       console.log("Auth updated:", authData);
-      // Reset state inputProfile setelah berhasil update
       setInputProfile({
         fullName: "",
         image_url: "",
       });
 
-      // Matikan mode edit
       setIsEditProfile(false);
       setFetchStatus(true);
     } else {
@@ -69,10 +64,7 @@ export default function DashboardProfile() {
   const handleUpdatePassword = () => {};
 
   return (
-    <section
-      id="dashboardProfile"
-      className="overflow-auto p-4 h-[400px] md:h-[410px] lg:h-[510px]"
-    >
+    <section id="dashboardProfile" className="overflow-auto p-4">
       <div className="p-3 md:p-5 w-[90%] mx-auto border flex flex-col items-center border-gray-400 text-white shadow-md bg-slate-700 rounded-md">
         <h1 className="text-sm md:text-xl font-bold">Profil Akun</h1>
       </div>
@@ -101,7 +93,7 @@ export default function DashboardProfile() {
               Edit Profile
             </button>
             <button
-              className="text-slate-200 bg-blue-600 rounded-full shadow-2xl text-sm md:text-base py-1 px-3 md:px-6 md:py-1 mt-2 hover:bg-blue-800 hover:text-slate-100"
+              className="hidden text-slate-200 bg-blue-600 rounded-full shadow-2xl text-sm md:text-base py-1 px-3 md:px-6 md:py-1 mt-2 hover:bg-blue-800 hover:text-slate-100"
               //   onClick={handleEditPassword}
             >
               Ubah Password
@@ -115,7 +107,7 @@ export default function DashboardProfile() {
               <label>Profile Image Url</label>
               <input
                 type="text"
-                className="w-full rounded-md bg-white py-2 px-2"
+                className="w-full rounded-md bg-white py-1 md:py-2 px-2"
                 name="image_url"
                 value={inputProfile.image_url}
                 onChange={onChangeInputProfile}
@@ -125,7 +117,7 @@ export default function DashboardProfile() {
               <label>Full Name</label>
               <input
                 type="text"
-                className="w-full rounded-md bg-white py-2 px-2"
+                className="w-full rounded-md bg-white py-1 md:py-2 px-2"
                 name="fullName"
                 value={inputProfile.fullName}
                 onChange={onChangeInputProfile}

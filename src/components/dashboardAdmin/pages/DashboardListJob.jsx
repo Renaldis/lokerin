@@ -6,12 +6,11 @@ export default function DashboardListJob() {
   const navigate = useNavigate();
   const { global } = useContext(useGlobalContext);
   const { jobs } = global;
-
   return (
     <div>
       <h1 className="text-lg md:text-xl font-bold p-5">List Data Perusahaan</h1>
       <form className="my-3"></form>
-      <div className="relative overflow-x-auto p-10">
+      <div className="relative overflow-x-auto p-5">
         <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400 overflow-x-scroll">
           <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
@@ -26,10 +25,10 @@ export default function DashboardListJob() {
           </thead>
           <tbody>
             {jobs.length > 0 ? (
-              jobs.map((job) => {
+              jobs.map((job, idx) => {
                 return (
                   <tr
-                    key={job._id}
+                    key={idx}
                     className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200"
                   >
                     <td>
@@ -45,12 +44,12 @@ export default function DashboardListJob() {
                     <td className="px-6 py-4">{job.salary_max}</td>
                     <td
                       className={
-                        job.job_status
+                        job.job_status == 1
                           ? "text-green-500 font-semibold px-6 py-4"
                           : "text-red-500 font-semibold px-6 py-4"
                       }
                     >
-                      {job.job_status ? "Open" : "Closed"}
+                      {job.job_status == 1 ? "Open" : "Closed"}
                     </td>
                     <td>
                       <div className="flex flex-col gap-2 items-center">

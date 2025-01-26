@@ -18,11 +18,14 @@ function GlobalProvider(props) {
     }
   }, []);
   useEffect(() => {
-    if (localStorage.getItem("jobs")) {
-      const dataJobs = localStorage.getItem("jobs");
-      setJobs(JSON.parse(dataJobs));
+    if (fetchStatus === true) {
+      if (localStorage.getItem("jobs")) {
+        const dataJobs = localStorage.getItem("jobs");
+        setJobs(JSON.parse(dataJobs));
+      }
+      setFetchStatus(false);
     }
-  }, []);
+  }, [fetchStatus]);
 
   useEffect(() => {
     if (fetchStatus === true) {
@@ -48,7 +51,6 @@ function GlobalProvider(props) {
       document.body.style.overflow = "auto";
     };
   }, [isModalOpen]);
-  console.log(fetchStatus);
   const auth = {
     user,
     setUser,

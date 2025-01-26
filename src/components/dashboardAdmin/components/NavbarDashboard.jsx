@@ -33,7 +33,7 @@ export default function NavbarDashboard({ pageName, ...props }) {
               <img
                 src={userImg}
                 alt="man-smile"
-                className="w-10 rounded-full"
+                className="ms-2 w-12 rounded-full aspect-square object-fill"
               />
             </div>
           ) : (

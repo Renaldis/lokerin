@@ -4,7 +4,7 @@ import { useGlobalContext } from "../../../context/useGlobalContext";
 
 export default function DashboardJobForm() {
   const { global } = useContext(useGlobalContext);
-  const { setJobs, jobs } = global;
+  const { setJobs, jobs, setFetchStatus } = global;
 
   const navigate = useNavigate();
   const [input, setInput] = useState({
@@ -24,8 +24,28 @@ export default function DashboardJobForm() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    
-};
+    let existingData = JSON.parse(localStorage.getItem("jobs")) || [];
+
+    existingData.push(input);
+
+    localStorage.setItem("jobs", JSON.stringify(existingData));
+
+    setInput({
+      title: "",
+      company_name: "",
+      company_city: "",
+      company_image_url: "",
+      salary_min: "",
+      salary_max: "",
+      job_description: "",
+      job_qualification: "",
+      job_type: "",
+      job_tenure: "",
+      job_status: "",
+    });
+    setFetchStatus(true);
+    navigate("/dashboard/list-job-vacancy");
+  };
 
   const handleInput = (e) => {
     let name = e.target.name;
@@ -34,8 +54,8 @@ export default function DashboardJobForm() {
     setInput({ ...input, [name]: value });
   };
   return (
-    <section id="dashboardJobForm" className="overflow-auto p-4 h-[100%] pb-24">
-      <div className="p-3 md:p-5 w-[90%] mx-auto border flex flex-col items-center border-gray-400 text-white shadow-md bg-slate-700 rounded-md">
+    <section id="dashboardJobForm" className="p-4 h-[100%]">
+      <div className="p-3 md:p-5 w-[90%] mx-auto border flex flex-col items-center border-gray-400 text-white shadow-md bg-slate-700 rounded-md ">
         <h1 className="text-xl md:text-2xl">Buat Lowongan Kerja Baru</h1>
         <form className="py-2 w-full" onSubmit={handleSubmit}>
           <div className="flex flex-col gap-1 py-1 ">

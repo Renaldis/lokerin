@@ -42,7 +42,9 @@ export default function LayoutDashboard(props) {
             pageName={pageName}
           />
 
-          <main className="flex-1 h-screen">{props.children}</main>
+          <main className="flex-1 h-screen overflow-y-scroll mb-5">
+            {props.children}
+          </main>
         </div>
       </div>
     </>
