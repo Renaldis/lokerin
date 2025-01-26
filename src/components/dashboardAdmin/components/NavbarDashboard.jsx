@@ -27,7 +27,7 @@ export default function NavbarDashboard({ pageName, ...props }) {
         </span>
 
         {/* Profile */}
-        <div className="hidden lg:flex items-center gap-2">
+        <div className="lg:flex items-center gap-2">
           {user ? (
             <div
               className="flex items-center cursor-pointer"
@@ -52,22 +52,21 @@ export default function NavbarDashboard({ pageName, ...props }) {
       </div>
 
       {/* admin menu dropdown */}
-      <div className="absolute right-0 hidden lg:block">
+      <div
+        className={`absolute right-0 ${
+          location.pathname == "/dashboard/list-job-vacancy"
+            ? "block"
+            : "hidden"
+        } md:hidden`}
+      >
         {isMenuAdminOpen && (
-          <div className="relative px-6 pb-3 bg-white border-t border-slate-300 w-52">
+          <div className="relative px-6 bg-white border border-slate-300 w-52 z-50">
             <Link
               to="/dashboard"
               className={`block text-base font-semibold py-2 text-slate-600 hover:text-slate-900`}
             >
               Dashboard Admin
             </Link>
-            <hr />
-            <Button
-              className="bg-red-500 hover:bg-red-800 text-white mt-2"
-              onClick={handleConfirmLogout}
-            >
-              Logout
-            </Button>
           </div>
         )}
       </div>

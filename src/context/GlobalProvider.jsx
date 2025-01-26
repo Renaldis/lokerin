@@ -63,6 +63,7 @@ function GlobalProvider(props) {
     isMenuAdminOpen,
     setIsMenuOpen,
     isMenuOpen,
+    jobs,
   };
   return (
     <useGlobalContext.Provider value={{ auth, global }}>
