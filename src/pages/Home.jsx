@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
-import bannerImg from "/public/assets/heroSiniLoker.png";
-
+import bannerImg from "/assets/heroSiniLoker.png";
 import { cardAbout, jobListings } from "../data";
 
 function Home() {

@@ -1,13 +1,31 @@
 import { Link, useLocation } from "react-router-dom";
 import { useState } from "react";
-import LokerLogo from "/public/assets/siniLoker2.png";
+import LokerLogo from "/assets/siniLoker2.png";
+import { useContext } from "react";
+import { useGlobalContext } from "../../context/useGlobalContext";
+import Button from "../button/Button";
+import ConfirmModal from "../popupConfirm/Confirm";
 
 function Navbar({ ...props }) {
+  const { auth, global } = useContext(useGlobalContext);
+  const { user, authenticated } = auth;
+  const {
+    handleConfirmLogout,
+    isModalOpen,
+    setIsMenuAdminOpen,
+    isMenuAdminOpen,
+    isMenuOpen,
+    setIsMenuOpen,
+  } = global;
+
   const location = useLocation();
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
+  };
+  const toggleMenuAdmin = () => {
+    setIsMenuAdminOpen(!isMenuAdminOpen);
+    isModalOpen && setIsMenuAdminOpen(false);
   };
 
   return (
@@ -65,21 +83,48 @@ function Navbar({ ...props }) {
 
         {/* Profile */}
         <div className="hidden lg:flex items-center gap-2">
-          {/* before login */}
-          <a
-            href=""
-            className="px-6 py-2 bg-blue-600 text-slate-100 rounded-lg hover:bg-blue-900 font-semibold"
-          >
-            Masuk
-          </a>
-          {/* after login */}
-          {/* <span>Renaldi Saputra</span>
-          <img
-            src="https://media.istockphoto.com/id/483627817/photo/showing-off-his-pearly-whites.jpg?s=612x612&w=0&k=20&c=gk6aVVGp52YFx1ZzPVQplGc7JL5zkrfxQTuLjIn2RU8="
-            alt="man-smile"
-            className="w-10 rounded-full"
-          /> */}
+          {user ? (
+            <div
+              className="flex items-center cursor-pointer"
+              onClick={toggleMenuAdmin}
+            >
+              <span>{user}</span>
+              <img
+                src="https://media.istockphoto.com/id/483627817/photo/showing-off-his-pearly-whites.jpg?s=612x612&w=0&k=20&c=gk6aVVGp52YFx1ZzPVQplGc7JL5zkrfxQTuLjIn2RU8="
+                alt="man-smile"
+                className="w-10 rounded-full"
+              />
+            </div>
+          ) : (
+            <Link
+              to="/login"
+              className="px-6 py-2 bg-blue-600 text-slate-100 rounded-lg hover:bg-blue-900 font-semibold"
+            >
+              Masuk
+            </Link>
+          )}
         </div>
+      </div>
+
+      {/* admin menu dropdown */}
+      <div className="absolute right-0 hidden lg:block">
+        {isMenuAdminOpen && (
+          <div className="relative px-6 pb-3 bg-white border-t border-slate-300 w-52">
+            <Link
+              to="/dashboard"
+              className={`block text-base font-semibold py-2 text-slate-600 hover:text-slate-900`}
+            >
+              Dashboard Admin
+            </Link>
+            <hr />
+            <Button
+              className="bg-red-500 hover:bg-red-800 text-white mt-2"
+              onClick={handleConfirmLogout}
+            >
+              Logout
+            </Button>
+          </div>
+        )}
       </div>
 
       {/* Dropdown Menu (Small Screens) */}
@@ -110,18 +155,35 @@ function Navbar({ ...props }) {
             Tentang Kami
           </Link>
           <div className="flex items-center gap-2 mt-3">
-            {/* before login */}
-
-            {/* after login */}
-            {/* <span>Renaldi Saputra</span>
-            <img
-              src="https://media.istockphoto.com/id/483627817/photo/showing-off-his-pearly-whites.jpg?s=612x612&w=0&k=20&c=gk6aVVGp52YFx1ZzPVQplGc7JL5zkrfxQTuLjIn2RU8="
-              alt="man-smile"
-              className="w-10 rounded-full"
-            /> */}
+            {user ? (
+              <div className="flex items-center cursor-pointer">
+                <span>{user}</span>
+                <img
+                  src="https://media.istockphoto.com/id/483627817/photo/showing-off-his-pearly-whites.jpg?s=612x612&w=0&k=20&c=gk6aVVGp52YFx1ZzPVQplGc7JL5zkrfxQTuLjIn2RU8="
+                  alt="man-smile"
+                  className="w-10 rounded-full"
+                />
+              </div>
+            ) : (
+              <Link
+                to="/login"
+                className="px-6 py-2 bg-blue-600 text-slate-100 rounded-lg hover:bg-blue-900 font-semibold"
+              >
+                Masuk
+              </Link>
+            )}
           </div>
+          {user && (
+            <Button
+              className="bg-red-500 hover:bg-red-800 text-white mt-2"
+              onClick={handleConfirmLogout}
+            >
+              Logout
+            </Button>
+          )}
         </div>
       )}
+      {isModalOpen && <ConfirmModal action="Logout"></ConfirmModal>}
     </nav>
   );
 }
