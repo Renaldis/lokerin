@@ -11,6 +11,7 @@ import Dashboard from "./components/dashboardAdmin/pages/dashboard";
 import DashboardListJob from "./components/dashboardAdmin/pages/DashboardListJob";
 import DashboardJobForm from "./components/dashboardAdmin/pages/DashboardJobForm";
 import DashboardProfile from "./components/dashboardAdmin/pages/DashboardProfile";
+import DashboardEditVacancy from "./components/dashboardAdmin/pages/DashboardEditVacancy";
 
 function App() {
   const LoginRoute = ({ children }) => {
@@ -83,6 +84,16 @@ function App() {
                   <DashboardListJob />
                 </LayoutDashboard>
               </DashboardRoute>
+            }
+          />
+          <Route
+            path="/dashboard/list-job-vacancy/edit/:id"
+            element={
+              <LayoutDashboard>
+                <DashboardRoute>
+                  <DashboardEditVacancy />
+                </DashboardRoute>
+              </LayoutDashboard>
             }
           />
           <Route

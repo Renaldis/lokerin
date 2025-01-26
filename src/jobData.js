@@ -1,6 +1,6 @@
 const jobData = [
   {
-    _id: "1",
+    _id: 1,
     title: "Quality Assurance",
     job_description: "Handling backend stuff and cloud is a plust point (AWS)",
     job_qualification: "Java, Springboot, React, Next",
@@ -14,10 +14,9 @@ const jobData = [
     salary_min: 4000000,
     salary_max: 10000000,
     createdAt: "2024-09-17T13:40:26.026Z",
-    __v: 0,
   },
   {
-    _id: "2",
+    _id: 2,
     title: "Frontend Developer",
     job_description: "Develop responsive user interfaces for web applications.",
     job_qualification: "HTML, CSS, JavaScript, React, Vue.js",
@@ -31,10 +30,9 @@ const jobData = [
     salary_min: 8000000,
     salary_max: 15000000,
     createdAt: "2024-10-16T04:30:28.597Z",
-    __v: 0,
   },
   {
-    _id: "3",
+    _id: 3,
     title: "Data Scientist",
     job_description: "Analyze data to help drive business decisions.",
     job_qualification: "Python, SQL, Machine Learning, Data Visualization",
@@ -48,10 +46,9 @@ const jobData = [
     salary_min: 12000000,
     salary_max: 20000000,
     createdAt: "2024-10-16T04:32:05.844Z",
-    __v: 0,
   },
   {
-    _id: "4",
+    _id: 4,
     title: "Product Manager",
     job_description: "Oversee product development from ideation to launch.",
     job_qualification: "Project Management, UX/UI, Agile, SCRUM",
@@ -64,7 +61,6 @@ const jobData = [
     salary_min: 15000000,
     salary_max: 25000000,
     createdAt: "2024-10-16T04:35:24.036Z",
-    __v: 0,
   },
 ];
 
