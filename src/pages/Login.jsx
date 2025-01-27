@@ -16,9 +16,11 @@ const Login = () => {
     password: "",
   });
   const [passwordLength, setPasswordLength] = useState(false);
+  const [error, setError] = useState(false);
 
   const handleInput = (e) => {
     const { name, value } = e.target;
+    setError(false);
     setInput({
       ...input,
       [name]: value,
@@ -54,6 +56,13 @@ const Login = () => {
         username: "",
         password: "",
       });
+    } else {
+      setInput({
+        username: "",
+        password: "",
+      });
+      setPasswordLength(false);
+      setError(true);
     }
   };
 
@@ -94,7 +103,11 @@ const Login = () => {
           {passwordLength && (
             <p className="text-red-600 -mt-2 mb-2">Minimum 8 Karakter</p>
           )}
-
+          {error && (
+            <p className="text-red-600 -mt-2 mb-2">
+              Please enter a correct username and password
+            </p>
+          )}
           <button
             type="submit"
             className="w-full bg-blue-600 text-white p-3 rounded-lg font-semibold hover:bg-blue-800 cursor-pointer"
