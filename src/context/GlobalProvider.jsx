@@ -68,6 +68,7 @@ function GlobalProvider(props) {
     isMenuOpen,
     jobs,
     setFetchStatus,
+    setJobs,
   };
   return (
     <useGlobalContext.Provider value={{ auth, global }}>

@@ -96,7 +96,7 @@ export default function DashboardListJob() {
         <div className="me-5">
           {isFocus && (
             <span className="w-[220px] text-xs text-slate-200 absolute top-27 right-5 transition-all bg-slate-950 rounded-lg p-2">
-              Search by title job and company name
+              Search by title job or company name
             </span>
           )}
           <input
