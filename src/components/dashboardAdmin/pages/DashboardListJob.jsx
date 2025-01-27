@@ -8,6 +8,7 @@ export default function DashboardListJob() {
   const { setFetchStatus } = global;
 
   const [jobs, setJobs] = useState([]);
+  const [isFocus, setIsFocus] = useState(false);
 
   useEffect(() => {
     const data = JSON.parse(localStorage.getItem("jobs"));
@@ -62,6 +63,14 @@ export default function DashboardListJob() {
       setJobs(filteredJobs);
     }
   };
+  const handleFocus = () => {
+    setIsFocus(true);
+  };
+  const handleBlur = (e) => {
+    if (e.target.value === "") {
+      setIsFocus(false);
+    }
+  };
   return (
     <div>
       <h1 className="text-lg md:text-xl font-bold px-5 pt-5">
@@ -85,12 +94,19 @@ export default function DashboardListJob() {
           </label>
         </div>
         <div className="me-5">
+          {isFocus && (
+            <span className="w-[220px] text-xs text-slate-200 absolute top-27 right-5 transition-all bg-slate-950 rounded-lg p-2">
+              Search by title job and company name
+            </span>
+          )}
           <input
             type="text"
             value={inputSearch}
             onChange={handleSearch}
             className="border rounded-sm border-slate-400"
             placeholder="search title job, company name"
+            onFocus={handleFocus}
+            onBlur={handleBlur}
           />
         </div>
       </form>
