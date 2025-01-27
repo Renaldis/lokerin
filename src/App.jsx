@@ -12,6 +12,7 @@ import DashboardListJob from "./components/dashboardAdmin/pages/DashboardListJob
 import DashboardJobForm from "./components/dashboardAdmin/pages/DashboardJobForm";
 import DashboardProfile from "./components/dashboardAdmin/pages/DashboardProfile";
 import DashboardEditVacancy from "./components/dashboardAdmin/pages/DashboardEditVacancy";
+import ErrNotFound from "./pages/ErrNotFound";
 
 function App() {
   const LoginRoute = ({ children }) => {
@@ -96,6 +97,7 @@ function App() {
               </LayoutDashboard>
             }
           />
+          <Route path="*" element={<ErrNotFound />} />
           <Route
             path="/dashboard/list-job-vacancy/create"
             element={
