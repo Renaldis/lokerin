@@ -1,11 +1,30 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useGlobalContext } from "../../../context/useGlobalContext";
 import { useNavigate } from "react-router-dom";
 
 export default function DashboardListJob() {
   const navigate = useNavigate();
   const { global } = useContext(useGlobalContext);
-  const { jobs, setFetchStatus } = global;
+  const { setFetchStatus } = global;
+
+  const [jobs, setJobs] = useState([]);
+
+  useEffect(() => {
+    const data = JSON.parse(localStorage.getItem("jobs"));
+    setJobs(data);
+  }, []);
+
+  const [inputSearch, setInputSearch] = useState("");
+
+  const [currentPage, setCurrentPage] = useState(
+    parseInt(localStorage.getItem("currentPage")) || 1
+  );
+  const [itemsPerPage, setItemsPerPage] = useState(5);
+
+  const handleSelectItemsPage = (e) => {
+    const { value } = e.target;
+    setItemsPerPage(value);
+  };
 
   const handleDelete = (id) => {
     const localJobs = JSON.parse(localStorage.getItem("jobs"));
@@ -14,11 +33,68 @@ export default function DashboardListJob() {
     localStorage.setItem("jobs", JSON.stringify(updatedJobs));
     setFetchStatus(true);
   };
+
+  // Calculate paginated data
+  const totalPages = Math.ceil(jobs.length / itemsPerPage);
+  const paginatedJobs = jobs.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
+
+  const handlePageChange = (newPage) => {
+    if (newPage > 0 && newPage <= totalPages) {
+      setCurrentPage(newPage);
+      localStorage.setItem("currentPage", newPage);
+    }
+  };
+  const handleSearch = (e) => {
+    const { value } = e.target;
+    setInputSearch(value);
+    const jobsData = JSON.parse(localStorage.getItem("jobs")) || [];
+    if (value.trim() === "") {
+      setJobs(jobsData);
+    } else {
+      const filteredJobs = jobsData.filter(
+        (job) =>
+          job.title.toLowerCase().includes(value.toLowerCase()) ||
+          job.company_name.toLowerCase().includes(value.toLowerCase())
+      );
+      setJobs(filteredJobs);
+    }
+  };
   return (
     <div>
-      <h1 className="text-lg md:text-xl font-bold p-5">List Data Perusahaan</h1>
-      <form className="my-3"></form>
-      <div className="relative overflow-x-auto p-5">
+      <h1 className="text-lg md:text-xl font-bold px-5 pt-5">
+        List Data Perusahaan
+      </h1>
+      <form className="mt-5 ps-5 flex justify-between">
+        <div>
+          <select
+            name="itemsPage"
+            id=""
+            className="border border-slate-400 px-2"
+            onChange={handleSelectItemsPage}
+          >
+            <option value="5">5</option>
+            <option value="10">10</option>
+            <option value="25">25</option>
+            <option value="50">50</option>
+          </select>
+          <label htmlFor="#" className="ps-2">
+            entries per page
+          </label>
+        </div>
+        <div className="me-5">
+          <input
+            type="text"
+            value={inputSearch}
+            onChange={handleSearch}
+            className="border rounded-sm border-slate-400"
+            placeholder="search title job, company name"
+          />
+        </div>
+      </form>
+      <div className="relative overflow-x-auto px-5 pb-5 pt-2">
         <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400 overflow-x-scroll">
           <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
@@ -32,8 +108,8 @@ export default function DashboardListJob() {
             </tr>
           </thead>
           <tbody>
-            {jobs.length > 0 ? (
-              jobs.map((job, idx) => {
+            {paginatedJobs.length > 0 ? (
+              paginatedJobs.map((job, idx) => {
                 return (
                   <tr
                     key={idx}
@@ -82,11 +158,47 @@ export default function DashboardListJob() {
               })
             ) : (
               <tr>
-                <td>Tidak ada data Tersedia</td>
+                <td colSpan="7" className="text-center py-4">
+                  Tidak ada data Tersedia
+                </td>
               </tr>
             )}
           </tbody>
         </table>
+      </div>
+      <div className="flex justify-between items-center px-5 py-3">
+        Page {currentPage} of {totalPages} <br />
+        <div className="flex gap-2">
+          <button
+            className="px-3 py-1 border border-gray-300 rounded-md hover:bg-gray-200"
+            onClick={() => handlePageChange(currentPage - 1)}
+            disabled={currentPage === 1}
+          >
+            Previous
+          </button>
+          {Array.from({ length: totalPages }, (_, index) => index + 1).map(
+            (page) => (
+              <button
+                key={page}
+                className={`px-2 py-1 border border-slate-300 rounded-sm cursor-pointer ${
+                  currentPage === page
+                    ? "bg-blue-600 hover:bg-blue-800 text-white"
+                    : "bg-slate-200"
+                }`}
+                onClick={() => handlePageChange(page)}
+              >
+                {page}
+              </button>
+            )
+          )}
+          <button
+            className="px-3 py-1 border border-gray-300 rounded-md hover:bg-gray-200"
+            onClick={() => handlePageChange(currentPage + 1)}
+            disabled={currentPage === totalPages}
+          >
+            Next
+          </button>
+        </div>
       </div>
     </div>
   );
