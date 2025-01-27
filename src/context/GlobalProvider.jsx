@@ -51,6 +51,50 @@ function GlobalProvider(props) {
       document.body.style.overflow = "auto";
     };
   }, [isModalOpen]);
+
+  function formatSalaryRange(salary_min, salary_max) {
+    const formatSalary = (salary) => {
+      if (salary >= 1000000) {
+        return `${(salary / 1000000).toFixed(1)} juta`;
+      } else if (salary >= 1000) {
+        return `${(salary / 1000).toFixed(0)} ribu`;
+      } else {
+        return salary;
+      }
+    };
+
+    // Menggunakan formatSalary untuk salary_min dan salary_max
+    const minSalary = formatSalary(salary_min);
+    const maxSalary = formatSalary(salary_max);
+
+    return `Rp ${minSalary} - ${maxSalary}`;
+  }
+  function timeElapsed(createdAt) {
+    const now = new Date();
+    const createdTime = new Date(createdAt);
+    const elapsedMs = now - createdTime;
+
+    const seconds = Math.floor(elapsedMs / 1000);
+    const minutes = Math.floor(seconds / 60);
+    const hours = Math.floor(minutes / 60);
+    const days = Math.floor(hours / 24);
+    const months = Math.floor(days / 30);
+    const years = Math.floor(months / 12);
+
+    if (years > 0) {
+      return `${years} tahun yang lalu`;
+    } else if (months > 0) {
+      return `${months} bulan yang lalu`;
+    } else if (days > 0) {
+      return `${days} hari yang lalu`;
+    } else if (hours > 0) {
+      return `${hours} jam yang lalu`;
+    } else if (minutes > 0) {
+      return `${minutes} menit yang lalu`;
+    } else {
+      return `Baru saja`;
+    }
+  }
   const auth = {
     user,
     setUser,
@@ -69,6 +113,8 @@ function GlobalProvider(props) {
     jobs,
     setFetchStatus,
     setJobs,
+    formatSalaryRange,
+    timeElapsed,
   };
   return (
     <useGlobalContext.Provider value={{ auth, global }}>

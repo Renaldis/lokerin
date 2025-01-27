@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import CardJobType from "./CardJobType";
 import { useContext } from "react";
@@ -6,29 +6,15 @@ import { useGlobalContext } from "../../context/useGlobalContext";
 
 function JobCardSection() {
   const { global } = useContext(useGlobalContext);
-  const { setJobs, jobs } = global;
+  const { jobs, formatSalaryRange } = global;
 
   const navigate = useNavigate();
-
-  // const [jobs, setJobs] = useState([]);
-
-  // useEffect(() => {
-  //   const data = JSON.parse(localStorage.getItem("jobs"));
-  //   setJobs(data);
-  // }, []);
-
-  const [inputSearch, setInputSearch] = useState("");
 
   const [currentPage, setCurrentPage] = useState(
     parseInt(localStorage.getItem("currentPage")) || 1
   );
   const [itemsPerPage, setItemsPerPage] = useState(6);
 
-  const handleSelectItemsPage = (e) => {
-    const { value } = e.target;
-    setItemsPerPage(value);
-  };
-  // Calculate paginated data
   const totalPages = Math.ceil(jobs.length / itemsPerPage);
   const paginatedJobs = jobs.slice(
     (currentPage - 1) * itemsPerPage,
@@ -40,23 +26,7 @@ function JobCardSection() {
       localStorage.setItem("currentPage", newPage);
     }
   };
-  function formatSalaryRange(salary_min, salary_max) {
-    const formatSalary = (salary) => {
-      if (salary >= 1000000) {
-        return `${(salary / 1000000).toFixed(1)} juta`;
-      } else if (salary >= 1000) {
-        return `${(salary / 1000).toFixed(0)} ribu`;
-      } else {
-        return salary;
-      }
-    };
 
-    // Menggunakan formatSalary untuk salary_min dan salary_max
-    const minSalary = formatSalary(salary_min);
-    const maxSalary = formatSalary(salary_max);
-
-    return `Rp ${minSalary} - ${maxSalary}`;
-  }
   return (
     <section id="jobCardSection" className="my-5">
       <div className="p-2">
@@ -106,7 +76,7 @@ function JobCardSection() {
                   <button
                     onClick={() => navigate(`/job-vacancies/${res._id}`)}
                     value={res._id}
-                    className="px-2 py-2 ml-2 md:px-4 mdpy-2 bg-blue-500 rounded-lg text-sm text-slate-50 hover:bg-blue-800 transition-all duration-200"
+                    className="cursor-pointer px-2 py-2 ml-2 md:px-4 mdpy-2 bg-blue-500 rounded-lg text-sm text-slate-50 hover:bg-blue-800 transition-all duration-200"
                   >
                     Lihat Detail
                   </button>
